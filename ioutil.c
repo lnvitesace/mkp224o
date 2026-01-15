@@ -285,6 +285,9 @@ int syncwrite(const char *filename,int secret,const u8 *data,size_t datalen)
 int writetofile(const char *path,const u8 *data,size_t len,int secret)
 {
 	FH fd = createfile(path,secret);
+	if (fd == FH_invalid)
+		return -1;
+
 	int wret = writeall(fd,data,len);
 	int cret = closefile(fd);
 	if (cret == -1)
